@@ -101,7 +101,7 @@ def welcome():
 def start_game():
     active_game = True
     name = welcome()
-    high_score = 1
+    high_score = 6
     new_game(active_game, name, high_score)
     
 def new_game(active_game, name, high_score):
@@ -113,19 +113,21 @@ def new_game(active_game, name, high_score):
     guess = guess_attempt(lower, upper, random_number)
     attempts = 1
     if guess == random_number:
-        user_won(name, attempts) 
+        user_won(name, attempts)
+        if attempts < high_score:
+            print(f"NEW HIGH SCORE: {attempts}")
+            high_score = attempts 
         active_game = play_again(name)
         if active_game == True:
             new_game(active_game, name, high_score)
     while guess != random_number:
-        active_game = continue_playing()
-        if active_game == False:
-            end_game()
-            break
         guess = guess_attempt(lower, upper, random_number)
         attempts += 1
         if guess == random_number:
-            user_won(name, attempts) 
+            user_won(name, attempts)
+            if attempts < high_score:
+                print(f"NEW HIGH SCORE: {attempts}")
+                high_score = attempts
             active_game = play_again(name)
             if active_game == True:
                 new_game(active_game, name, high_score)
